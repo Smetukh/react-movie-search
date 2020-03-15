@@ -10,7 +10,8 @@ class InputForm extends React.Component {
   }
   submitHandler = () => {
     this.props.onSubmit(this.state.value);
-    console.log("inputValue = ", this.state.value);
+    this.setState({ value: "" });
+    this.setState({ value: "" });
   };
   render() {
     return (
