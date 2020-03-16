@@ -21,3 +21,10 @@
   flex-direction: column;
   text-align: left;
 }
+
+.movieItemContainer {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  text-align: left;
+}
