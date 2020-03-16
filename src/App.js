@@ -24,7 +24,6 @@ class App extends React.Component {
       .then(res => res.json())
       .then(
         result => {
-          console.log("result = ", result);
           this.setState({
             isLoaded: true,
             items: result.results
@@ -81,17 +80,20 @@ class App extends React.Component {
     }
   }
 
-  onSubmit = () =>
-    this.setState({
-      submitValue: this.state.inputValue,
-      inputValue: "",
-      movieId: null
-    });
+  onSubmit = () => {
+    return(
+      this.setState({
+        submitValue: this.state.inputValue,
+        inputValue: "",
+        movie: null
+      })
+    )
+
+  }
 
   onChangeHandler = inputValue => this.setState({ inputValue });
 
   loadDetails = movie => {
-    console.log("id = ", movie);
     this.setState({
       movie
     });
@@ -99,7 +101,6 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <p>{this.state.submitValue}</p>
         <InputForm
           onSubmit={this.onSubmit}
           onChangeHandler={this.onChangeHandler}
@@ -109,14 +110,12 @@ class App extends React.Component {
           <MovieDetails
             movie={this.state.movie}
             recommendations={this.state.recommendations}
+            loadDetails={this.loadDetails}
           />
         ) : null}
         {this.state.items && !this.state.movie ? (
           <MovieList list={this.state.items} loadDetails={this.loadDetails} />
         ) : null}
-
-        <h1>Hello CodeSandbox</h1>
-        <h2>Start editing to see some magic happen!</h2>
       </div>
     );
   }

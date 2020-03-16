@@ -23,6 +23,7 @@ const MovieDetails = ({ movie, recommendations, loadDetails }) => {
       <p>{movie.overview || "No description available."}</p>
 
       {recommend}
+      
     </div>
   );
 };
