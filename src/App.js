@@ -36,34 +36,30 @@ class App extends React.Component {
       );
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevState.inputValue !== this.state.inputValue) {
-  //     //Perform some operation here
-  //     console.log("this.state.inputValue = ", this.state.inputValue);
-  // fetch(
-  //   `https://api.themoviedb.org/3/search/movie?api_key=81cfc9e7f03740911f7568ce112347b3&language=en-US&query=${
-  //     this.state.inputValue
-  //   }&page=1&include_adult=false`
-  // )
-  //   .then(function(response) {
-  //     return response.json();
-  //   })
-  //   .then(function(data) {
-  //     console.log(data.results);
-  //   });
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      this.state.submitValue &&
+      prevState.submitValue !== this.state.submitValue
+    ) {
+      //fetch searched movies from api
+      fetch(
+        `https://api.themoviedb.org/3/search/movie?api_key=81cfc9e7f03740911f7568ce112347b3&language=en-US&query=${
+          this.state.submitValue
+        }&page=1&include_adult=false`
+      )
+        .then(response => response.json())
+        .then(data =>
+          this.setState({
+            items: data.results
+          })
+        );
+    }
+  }
 
-  // this.setState({someState: someValue});
-  // this.classMethod();
-  //   }
-  // }
+  onSubmit = () =>
+    this.setState({ submitValue: this.state.inputValue, inputValue: "" });
 
-  onSubmit = inputValue => {
-    this.setState({ submitValue: this.state.inputValue });
-  };
-
-  onChangeHandler = inputValue => {
-    this.setState({ inputValue: inputValue });
-  };
+  onChangeHandler = inputValue => this.setState({ inputValue });
 
   render() {
     return (
