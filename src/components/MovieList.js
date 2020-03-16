@@ -1,5 +1,5 @@
 import React from "react";
-import ListItem from "./MovieItem";
+import MovieItem from "./MovieItem";
 
 // const InputForm = props => {
 const MovieList = props => {
@@ -8,7 +8,11 @@ const MovieList = props => {
     <div>
       <ul>
         {props.list.map(item => (
-          <ListItem key={item.id} item={item} />
+          <MovieItem
+            key={item.id}
+            item={item}
+            loadDetails={props.loadDetails}
+          />
         ))}
       </ul>
     </div>

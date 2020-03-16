@@ -2,3 +2,22 @@
   font-family: sans-serif;
   text-align: center;
 }
+
+.inputContainer {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  padding-bottom: 10px;
+}
+
+.imageContainer {
+  width: 50%;
+  height: 50%;
+}
+
+.movieDetailsContainer {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  text-align: left;
+}

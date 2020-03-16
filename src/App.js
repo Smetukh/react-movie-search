@@ -2,6 +2,7 @@ import React from "react";
 import "./styles.css";
 import InputForm from "./components/InputForm";
 import MovieList from "./components/MovieList";
+import MovieDetails from "./components/MovieDetails";
 
 class App extends React.Component {
   constructor(props) {
@@ -10,7 +11,9 @@ class App extends React.Component {
       inputValue: "",
       submitValue: "",
       isLoaded: false,
-      items: []
+      items: [],
+      movie: null,
+      recommendations: []
     };
   }
 
@@ -54,13 +57,45 @@ class App extends React.Component {
           })
         );
     }
+
+    if (this.state.movie) {
+      fetch(
+        `https://api.themoviedb.org/3/movie/${
+          this.state.movie.id
+        }/recommendations?api_key=81cfc9e7f03740911f7568ce112347b3`
+      )
+        .then(response => {
+          return response.json();
+        })
+        .then(recommendations => {
+          if (
+            recommendations &&
+            recommendations.results &&
+            recommendations.results.length
+          ) {
+            this.setState({
+              recommendations: recommendations.results.slice(0, 3)
+            });
+          }
+        });
+    }
   }
 
   onSubmit = () =>
-    this.setState({ submitValue: this.state.inputValue, inputValue: "" });
+    this.setState({
+      submitValue: this.state.inputValue,
+      inputValue: "",
+      movieId: null
+    });
 
   onChangeHandler = inputValue => this.setState({ inputValue });
 
+  loadDetails = movie => {
+    console.log("id = ", movie);
+    this.setState({
+      movie
+    });
+  };
   render() {
     return (
       <div className="App">
@@ -70,7 +105,16 @@ class App extends React.Component {
           onChangeHandler={this.onChangeHandler}
           inputValue={this.state.inputValue}
         />
-        {this.state.items ? <MovieList list={this.state.items} /> : null}
+        {this.state.movie ? (
+          <MovieDetails
+            movie={this.state.movie}
+            recommendations={this.state.recommendations}
+          />
+        ) : null}
+        {this.state.items && !this.state.movie ? (
+          <MovieList list={this.state.items} loadDetails={this.loadDetails} />
+        ) : null}
+
         <h1>Hello CodeSandbox</h1>
         <h2>Start editing to see some magic happen!</h2>
       </div>

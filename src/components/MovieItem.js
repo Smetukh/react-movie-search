@@ -2,11 +2,16 @@ import React from "react";
 
 // const InputForm = props => {
 const ListItem = props => {
-  // console.log("props.item = ", props.item);
+  const loadDetailsHandler = id => {
+    console.log("props.item.id = ", props.item);
+    props.loadDetails(props.item);
+  };
   return (
     <div>
       <li>
-        <a href={"google.com"}>{props.item.title}</a>
+        <p onClick={loadDetailsHandler} loadDetails={props.loadDetails}>
+          {props.item.title}
+        </p>
       </li>
     </div>
   );

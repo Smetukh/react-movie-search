@@ -1,17 +1,17 @@
 import React from "react";
 
-const InputForm = props => {
+const InputForm = ({ inputValue, onSubmit, onChangeHandler }) => {
   const submitHandler = () => {
-    props.onSubmit(props.inputValue);
+    onSubmit(inputValue);
   };
   const changeHandler = e => {
-    props.onChangeHandler(e.target.value);
+    onChangeHandler(e.target.value);
   };
   return (
-    <>
-      <input type="text" value={props.inputValue} onChange={changeHandler} />
-      <button onClick={submitHandler}>Submit</button>
-    </>
+    <div className="inputContainer">
+      <input type="text" value={inputValue} onChange={changeHandler} />
+      <button onClick={submitHandler}>Search</button>
+    </div>
   );
 };
 
