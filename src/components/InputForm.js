@@ -1,33 +1,18 @@
 import React from "react";
 
-// const InputForm = props => {
-class InputForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: ""
-    };
-  }
-  submitHandler = () => {
-    this.props.onSubmit(this.state.value);
-    this.setState({ value: "" });
-    this.setState({ value: "" });
+const InputForm = props => {
+  const submitHandler = () => {
+    props.onSubmit(props.inputValue);
   };
-  render() {
-    return (
-      <form onSubmit={this.submitHandler}>
-        <label>
-          Name:
-          <input
-            type="text"
-            value={this.state.value}
-            onChange={e => this.setState({ value: e.target.value })}
-          />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
-    );
-  }
-}
+  const changeHandler = e => {
+    props.onChangeHandler(e.target.value);
+  };
+  return (
+    <>
+      <input type="text" value={props.inputValue} onChange={changeHandler} />
+      <button onClick={submitHandler}>Submit</button>
+    </>
+  );
+};
 
 export default InputForm;

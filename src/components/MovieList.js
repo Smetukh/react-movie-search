@@ -3,12 +3,14 @@ import ListItem from "./MovieItem";
 
 // const InputForm = props => {
 const MovieList = props => {
-  console.log("props.list = ", props.list);
+  // console.log("props.list = ", props.list);
   return (
     <div>
-      {props.list.map(item => (
-        <ListItem item={item} />
-      ))}
+      <ul>
+        {props.list.map(item => (
+          <ListItem key={item.id} item={item} />
+        ))}
+      </ul>
     </div>
   );
 };
