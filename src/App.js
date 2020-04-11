@@ -57,7 +57,7 @@ class App extends React.Component {
         );
     }
 
-    if (this.state.movie && !this.state.recommendations.length) {
+    if (this.state.movie) {
       fetch(
         `https://api.themoviedb.org/3/movie/${
           this.state.movie.id
